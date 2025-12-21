@@ -57,7 +57,7 @@ function playGame () {
     
 }
 const humanSelection = getHumanChoice();
-const com)puterSelection = getComputerChoice();
+const computerSelection = getComputerChoice();
 console.log(`El valor seleccionado por el usuario es: ${humanSelection}`)
 console.log(`El valor seleccionado por el computador es: ${computerSelection}`)
 playRound(humanSelection, computerSelection)
