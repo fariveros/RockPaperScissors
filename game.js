@@ -1,5 +1,6 @@
 let humanScore = 0
 let computerScore = 0
+let rondas = 1
 
 function getComputerChoice() {
     let eleccionPc = Math.floor(Math.random() * (4 - 1) + 1)
@@ -33,15 +34,15 @@ function getHumanChoice() {
 }
 function playRound(humanChoice, computerChoice) {
 
-    if(humanChoice === computerChoice) {
+    if (humanChoice === computerChoice) {
         console.log("Haz empatado")
     }
     else if (humanChoice === "piedra" && computerChoice === "tijera") {
-        console.log("Haz ganado esta ronda") 
+        console.log("Haz ganado esta ronda")
         ++humanScore
     }
     else if (humanChoice === "papel" && computerChoice === "piedra") {
-        console.log("Haz ganado esta ronda") 
+        console.log("Haz ganado esta ronda")
         ++humanScore
     }
     else if (humanChoice === "tijera" && computerChoice === "papel") {
@@ -53,13 +54,27 @@ function playRound(humanChoice, computerChoice) {
         ++computerScore
     }
 }
-function playGame () {
-    
+function playGame() {
+    while (rondas < 6) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection)
+        console.log(`El valor seleccionado por el usuario es: ${humanSelection}`)
+        console.log(`El valor seleccionado por el computador es: ${computerSelection}`)
+        console.log(`Haz ganado ${humanScore} rondas` )
+        console.log(`El pc ha ganado ${computerScore} rondas`)
+        console.log(`Esta es la ronda: ${rondas}`)
+        ++rondas
+    }
 }
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-console.log(`El valor seleccionado por el usuario es: ${humanSelection}`)
-console.log(`El valor seleccionado por el computador es: ${computerSelection}`)
-playRound(humanSelection, computerSelection)
-console.log(humanScore)
-console.log(computerScore)
+
+playGame()
+if (humanScore > computerScore) {
+    console.log("Haz ganado")
+}
+else if (humanScore === computerScore) {
+    console.log("Haz empatado el juego")
+}
+else {
+    console.log("Haz perdido")
+}
