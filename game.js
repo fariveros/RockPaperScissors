@@ -1,80 +1,109 @@
 let humanScore = 0
 let computerScore = 0
-let rondas = 1
+let rondas = 0
+let humanChoice = ""
+
+const eleccionPiedra = document.querySelector("#Piedra")
+const eleccionPapel = document.querySelector("#Papel")
+const eleccionTijera = document.querySelector("#Tijera")
+const mostrarResultados = document.querySelector("#mostrarResultados")
+const parrafoEleccion = document.createElement("p")
+const parrafoRondas = document.createElement("p")
+const parrafoPuntaje = document.createElement("p")
+const parrafoGanador = document.createElement("p")
+const parrafoGanadorCombate = document.createElement("p")
+mostrarResultados.appendChild(parrafoEleccion)
+mostrarResultados.appendChild(parrafoRondas)
+mostrarResultados.appendChild(parrafoPuntaje)
+mostrarResultados.appendChild(parrafoGanador)
+mostrarResultados.appendChild(parrafoGanadorCombate)
 
 function getComputerChoice() {
     let eleccionPc = Math.floor(Math.random() * (4 - 1) + 1)
     switch (eleccionPc) {
         case 1:
             return "piedra"
-            break
         case 2:
             return "papel"
-            break
         case 3:
             return "tijera"
-            break
+    }
+}
 
-    }
-}
-function getHumanChoice() {
-    let eleccion = prompt('Ingrese "Piedra" "Papel" o "Tijera"')
-    let elegido = eleccion.toLowerCase()
-    switch (elegido) {
-        case "piedra":
-            return "piedra"
-            break
-        case "papel":
-            return "papel"
-            break
-        case "tijera":
-            return "tijera"
-            break
-    }
-}
 function playRound(humanChoice, computerChoice) {
-
+    parrafoEleccion.innerHTML = `Haz elegido: <span>${humanChoice}</span>, La maquina ha elegido: <span>${computerChoice}</span>`
+    parrafoRondas.textContent = `Esta es la ronda: ${rondas}`
     if (humanChoice === computerChoice) {
-        console.log("Haz empatado")
+        parrafoGanadorCombate.textContent = "Haz empatado esta ronda"
     }
     else if (humanChoice === "piedra" && computerChoice === "tijera") {
-        console.log("Haz ganado esta ronda")
+        parrafoGanadorCombate.textContent = "Haz ganado esta ronda 🥵"
         ++humanScore
     }
     else if (humanChoice === "papel" && computerChoice === "piedra") {
-        console.log("Haz ganado esta ronda")
+        parrafoGanadorCombate.textContent = "Haz ganado esta ronda 🥵"
         ++humanScore
     }
     else if (humanChoice === "tijera" && computerChoice === "papel") {
-        console.log("Haz ganado esta ronda")
+        parrafoGanadorCombate.textContent = "Haz ganado esta ronda 🥵"
         ++humanScore
     }
     else {
-        console.log("Haz perdido esta ronda")
+        parrafoGanadorCombate.textContent = "Haz perdido esta ronda 🥶"
         ++computerScore
     }
+    parrafoPuntaje.innerHTML = `Tu puntaje es: ${humanScore} <br> Puntuacion de la maquina: ${computerScore}`
 }
-function playGame() {
-    while (rondas < 6) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection)
-        console.log(`El valor seleccionado por el usuario es: ${humanSelection}`)
-        console.log(`El valor seleccionado por el computador es: ${computerSelection}`)
-        console.log(`Haz ganado ${humanScore} rondas` )
-        console.log(`El pc ha ganado ${computerScore} rondas`)
-        console.log(`Esta es la ronda: ${rondas}`)
-        ++rondas
+
+function choiceWinner() {
+    parrafoGanadorCombate.style.display = "none"
+    if (humanScore > computerScore) {
+        parrafoGanador.textContent = "Haz ganado el juego!🥳"
+    }
+    else if (humanScore === computerScore) {
+        parrafoGanador.textContent = "Haz empatado el juego!"
+        console.log("Haz empatado el juego")
+    }
+    else {
+        parrafoGanador.textContent = "Haz perdido el juego😵"
     }
 }
 
-playGame()
-if (humanScore > computerScore) {
-    console.log("Haz ganado")
+function playGame() {
+    eleccionPiedra.addEventListener("click", (event) => {
+        if (rondas < 6) {
+            humanChoice = "piedra"
+            ++rondas
+            playRound(humanChoice, getComputerChoice())
+        } else {
+            choiceWinner()
+        }
+    })
+    eleccionPapel.addEventListener("click", (event) => {
+        if (rondas < 6) {
+            humanChoice = "papel"
+            ++rondas
+            playRound(humanChoice, getComputerChoice())
+        } else {
+            choiceWinner()
+        }
+    })
+    eleccionTijera.addEventListener("click", (event) => {
+        if (rondas < 6) {
+            humanChoice = "tijera"
+            ++rondas
+            playRound(humanChoice, getComputerChoice())
+        } else {
+            choiceWinner()
+        }
+    })
 }
-else if (humanScore === computerScore) {
-    console.log("Haz empatado el juego")
-}
-else {
-    console.log("Haz perdido")
-}
+playGame();
+
+
+
+
+
+
+
+
