@@ -71,7 +71,8 @@ function choiceWinner() {
 
 function playGame() {
     eleccionPiedra.addEventListener("click", (event) => {
-        if (rondas < 6) {
+        console.log(computerScore)
+        if (humanScore < 5 && computerScore < 5) {
             humanChoice = "piedra"
             ++rondas
             playRound(humanChoice, getComputerChoice())
@@ -80,7 +81,8 @@ function playGame() {
         }
     })
     eleccionPapel.addEventListener("click", (event) => {
-        if (rondas < 6) {
+        console.log(computerScore)
+        if (humanScore < 5 && computerScore < 5) {
             humanChoice = "papel"
             ++rondas
             playRound(humanChoice, getComputerChoice())
@@ -89,7 +91,8 @@ function playGame() {
         }
     })
     eleccionTijera.addEventListener("click", (event) => {
-        if (rondas < 6) {
+        console.log(computerScore)
+        if (humanScore < 5 && computerScore < 5) {
             humanChoice = "tijera"
             ++rondas
             playRound(humanChoice, getComputerChoice())
